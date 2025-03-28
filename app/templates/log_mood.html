@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Log Your Mood</h1>
+  <p>Choose one of the moods below. You will then be redirected to an optional journal form.</p>
+  <form method="post" action="{{ url_for('log_mood') }}" id="moodForm">
+    {{ form.hidden_tag() }}
+    <!-- Render the hidden field for the mood choice -->
+    {{ form.choice }}
+    <div class="row">
+      <div class="col-12">
+        <!-- Display 12 mood buttons -->
+        <div class="btn-group d-flex flex-wrap" role="group">
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Happy')">Happy</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Sad')">Sad</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Angry')">Angry</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Excited')">Excited</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Calm')">Calm</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Anxious')">Anxious</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Content')">Content</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Stressed')">Stressed</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Bored')">Bored</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Energetic')">Energetic</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Melancholic')">Melancholic</button>
+          <button type="button" class="btn btn-outline-primary m-1" onclick="submitMood('Optimistic')">Optimistic</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  function submitMood(moodValue) {
+    document.getElementById("{{ form.choice.id }}").value = moodValue;
+    document.getElementById("moodForm").submit();
+  }
+</script>
+{% endblock %}

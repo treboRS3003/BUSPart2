@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Your Mood Prediction</h1>
+  <p>The predictive model suggests your mood will be: <strong>{{ predicted_mood }}</strong></p>
+  <p>This prediction was generated using hardcoded values.</p>
+
+  <p>{{recommendation["message"]}}</p>
+
+  {% if recommendation %}
+  <p>{{ recommendation["suggestions"].description }}</p>
+  <h3>Suggestions</h3>
+  <ul>
+    {% for tip in recommendation["suggestions"].tips %}
+      <li>{{ tip }}</li>
+    {% endfor %}
+  </ul>
+  <h3>Useful Links</h3>
+<ul>
+  {% for link in recommendation["suggestions"].links %}
+    <li><a href="{{ link.url }}" target="_blank">{{ link.name }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+
+  <a href="{{ url_for('home') }}" class="btn btn-primary">Continue</a>
+</div>
+{% endblock %}

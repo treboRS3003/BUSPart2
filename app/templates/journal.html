@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>Optional Journal Entry</h1>
+  <p>Enter a short journal entry (max 200 chars), or close without saving.</p>
+
+  <form method="post" action="{{ url_for('journal') }}">
+    {{ form.hidden_tag() }}
+    <div class="form-group mb-3">
+      {{ form.journal.label }}
+      {{ form.journal(class="form-control", rows="4", placeholder="Describe your day...") }}
+    </div>
+    <div>
+      {{ form.submit(class="btn btn-primary") }}
+      {{ form.cancel(class="btn btn-secondary") }}
+    </div>
+  </form>
+</div>
+{% endblock %}

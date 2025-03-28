@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>All Mood Entries</h1>
+  {% if entries %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Mood</th>
+          <th>Sentiment Score</th>
+          <th>Smartwatch Data</th>
+          <th>Weather</th>
+          <th>Timetable</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for entry in entries %}
+        <tr>
+          <td>{{ entry.date }}</td>
+          <td>{{ entry.mood }}</td>
+          <td>{{ entry.sentiment_score or "N/A" }}</td>
+          <td>{{ entry.smartwatch_data or "N/A" }}</td>
+          <td>{{ entry.weather or "N/A" }}</td>
+          <td>{{ entry.timetable or "N/A" }}</td>
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No mood entries found.</p>
+  {% endif %}
+</div>
+{% endblock %}
