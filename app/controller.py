@@ -274,7 +274,12 @@ class DistressAlert:
 
     #Checks if last 7 entries are negative entries and if so return True
     def triggerAlert(self, current_mood_record) -> bool:
-        previous_entries = (
+        previous_entries = self.retrieve_previous_7_entries(current_mood_record)
+        return self.check_for_negative_entries(previous_entries)
+
+    #Retrieves a maximum of 7 of the most recent entries
+    def retrieve_previous_7_entries(self, current_mood_record):
+        return (
             Mood_DB.query.filter(
                 Mood_DB.user_id == self.user_id,
                 Mood_DB.date < current_mood_record.date
@@ -283,12 +288,15 @@ class DistressAlert:
             .limit(7)
             .all()
         )
-        #CHecks there are 7 previous entries
+
+    #Checks if there are 7 recent entries, if not, returns False
+    #Checks if the 7 recent entries are all negative, if so, returns True
+    def check_for_negative_entries(self, previous_entries):
         if len(previous_entries) == 7:
-            #returns true if there are 7 previous sentiment scores all below 0 or mood entered for the past 7 entries are negative
+            # returns true if there are 7 previous sentiment scores all below 0 or mood entered for the past 7 entries are negative
             distress_triggered = all(
                 (entry.sentiment_score is not None and entry.sentiment_score < 0) or
-                (entry.mood.lower() in [ "Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"])
+                (entry.mood.lower() in ["Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"])
                 for entry in previous_entries
             )
             return distress_triggered
