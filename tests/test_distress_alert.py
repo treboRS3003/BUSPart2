@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 from app.controller import DistressAlert
+import pytest
+from unittest.mock import patch
 
 
 """
@@ -24,6 +26,11 @@ def create_test_mood_entries(number_of_days, negative=True):
         else:
             test_entries.append(FakeMoodEntry(mood_date, "Happy", 0.7))
     return test_entries
+
+# InvalidMoodEntry class is used for the negative triggerAlert() unit test, to ensure an error is raised due to the
+# invalid format (missing attributes).
+class InvalidMoodEntry:
+    pass
 
 
 """
