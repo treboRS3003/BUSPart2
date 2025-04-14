@@ -323,16 +323,17 @@ class DistressAlert:
 """controller functions"""
 
 
-def is_positive_moods(predicted_mood) -> bool:
+def is_positive_mood(predicted_mood) -> bool:
     # Decide which moods are "positive" vs. "negative"
     positive_moods = ["Happy", "Optimistic", "Calm", "Content", "Excited", "Energetic"]
+    negative_moods = ["Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"]
     # Returns True if the predicted_mood is in the list of positive_moods
     return predicted_mood in positive_moods
 
 
 def create_message(predicted_mood):
     # If the predicted mood is positive, display a congratulatory message
-    if is_positive_moods(predicted_mood):
+    if is_positive_mood(predicted_mood):
         return (
             "Congratulations! Your mood is positive. Keep up the great work! "
             "Here are some tips to stay on this track:"
@@ -375,7 +376,7 @@ def process_recommendation(user, predicted_mood):
     message = create_message(predicted_mood)
 
     # For a positive mood, we typically don't need external support info
-    if is_positive_moods(predicted_mood):
+    if is_positive_mood(predicted_mood):
         support_contact = None
         uni_wellbeing = None
     else:
