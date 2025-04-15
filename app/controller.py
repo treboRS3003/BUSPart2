@@ -328,7 +328,11 @@ def is_positive_mood(predicted_mood) -> bool:
     positive_moods = ["Happy", "Optimistic", "Calm", "Content", "Excited", "Energetic"]
     negative_moods = ["Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"]
     # Returns True if the predicted_mood is in the list of positive_moods
-    return predicted_mood in positive_moods
+    if predicted_mood in positive_moods:
+        return True
+    if predicted_mood in negative_moods:
+        return False
+    raise ValueError("Invalid mood.")
 
 
 def create_message(predicted_mood):
@@ -347,6 +351,9 @@ def create_message(predicted_mood):
 
 
 def retrieve_support(user):
+    #Check valid user is logged in
+    if user is None or user.id is None:
+        raise ValueError("No user found.")
     # Instantiate the SupportService (example values for ID, name, noticeDouble)
     support_service = SupportService(
         supportID=101,
