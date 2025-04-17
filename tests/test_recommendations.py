@@ -69,8 +69,8 @@ test_create_message_positive tests the is_positive_mood function to check that i
 negative mood is input as the predicted_mood parameter. 
 """
 def test_create_message_positive():
-    with patch('app.controller.is_positive_mood') as mock_fetch:
-        mock_fetch.return_value = False
+    with patch('app.controller.is_positive_mood') as mock_is_positive_mood:
+        mock_is_positive_mood.return_value = False
         result = create_message("Sad")
         assert result == ("It seems you're experiencing a challenging mood. Consider these suggestions "
                           "and feel free to seek additional support.")

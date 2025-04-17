@@ -274,6 +274,9 @@ class DistressAlert:
 
     #Checks if last 7 entries are negative entries and if so return True
     def triggerAlert(self, current_mood_record) -> bool:
+        if not current_mood_record:
+            raise AttributeError('Invalid current mood record.')
+
         previous_entries = self.retrieve_previous_7_entries(current_mood_record)
         return self.check_for_negative_entries(previous_entries)
 

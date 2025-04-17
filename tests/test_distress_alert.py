@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from app.controller import DistressAlert
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, Mock
 
 
 """
@@ -27,25 +27,37 @@ def create_test_mood_entries(number_of_days, negative=True):
             test_entries.append(FakeMoodEntry(mood_date, "Happy", 0.7))
     return test_entries
 
-# InvalidMoodEntry class is used for the negative triggerAlert() unit test, to ensure an error is raised due to the
-# invalid format (missing attributes).
-class InvalidMoodEntry:
-    pass
-
 
 """
 test_triggerAlert_positive tests the triggerAlert function to check that True is returned if the user has 7 consecutive
 negative mood entries.
 """
 def test_triggerAlert_positive():
-    pass
+    instance = DistressAlert(user_id=1)
+
+    with patch.object(DistressAlert, 'retrieve_previous_7_entries') as mock_retrieve, \
+        patch.object(DistressAlert, 'check_for_negative_entries') as mock_check:
+
+        mock_retrieve.return_value = create_test_mood_entries(7, negative=True)
+        mock_check.return_value = True
+
+        current_mood_record = Mock()
+
+        result = instance.triggerAlert(current_mood_record)
+
+        assert result is True
 
 
 """
 test_triggerAlert_positive tests the triggerAlert function to check that 
 """
 def test_triggerAlert_negative():
-    pass
+    instance = DistressAlert(user_id=1)
+
+    invalid_mood_record = None
+
+    with pytest.raises(AttributeError):
+        instance.triggerAlert(invalid_mood_record)
 
 
 """
@@ -67,3 +79,8 @@ def test_check_for_negative_entries_negative():
 
     assert DistressAlert(user_id=1).check_for_negative_entries(test_entries) is False
 
+
+"""
+retrieve_previous_7_entries() function is not tested here as it relies heavily on database interactions. Therefore, it 
+should be tested during integration tests rather than unit tests. 
+"""
