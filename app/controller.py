@@ -275,7 +275,7 @@ class DistressAlert:
     #Checks if last 7 entries are negative entries and if so return True
     def triggerAlert(self, current_mood_record) -> bool:
         if not current_mood_record:
-            raise AttributeError('Invalid current mood record.')
+            raise ValueError('Invalid current mood record.')
 
         previous_entries = self.retrieve_previous_7_entries(current_mood_record)
         return self.check_for_negative_entries(previous_entries)
@@ -376,6 +376,10 @@ def process_recommendation(user, predicted_mood):
     Also integrates the SupportService class from the class diagram
     to provide external well-being info or help links.
     """
+
+    #Check predicted_mood is of type 'str'
+    if not isinstance(predicted_mood, str):
+        raise TypeError('predicted_mood must be a string.')
 
     # Instantiate the RecommendationSystem with the current user's ID.
     recommendation_system = RecommendationSystem(user_id=user.id)

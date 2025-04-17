@@ -56,7 +56,7 @@ def test_triggerAlert_negative():
 
     invalid_mood_record = None
 
-    with pytest.raises(AttributeError):
+    with pytest.raises(ValueError):
         instance.triggerAlert(invalid_mood_record)
 
 

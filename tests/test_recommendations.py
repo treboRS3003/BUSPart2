@@ -37,11 +37,16 @@ def test_process_recommendation_positive():
 
 
 """
-test_process_recommendation_negative tests the process_recommendation function to check that the user does not receive a 
-congratulatory message or support message when the predicted mood is not in the MOOD_LIST []. 
+test_process_recommendation_negative tests the process_recommendation function to check that a TypeError is raised if the
+predicted mood argument is not of the correct type (str). 
 """
 def test_process_recommendation_negative():
-    pass
+    mock_user = MagicMock()
+    mock_user.id = 111
+    predicted_mood = 500
+
+    with pytest.raises(TypeError):
+        process_recommendation(mock_user, predicted_mood)
 
 
 """
