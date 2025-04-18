@@ -274,7 +274,15 @@ class DistressAlert:
 
     #Checks if last 7 entries are negative entries and if so return True
     def triggerAlert(self, current_mood_record) -> bool:
-        previous_entries = (
+        if not current_mood_record:
+            raise ValueError('Invalid current mood record.')
+
+        previous_entries = self.retrieve_previous_7_entries(current_mood_record)
+        return self.check_for_negative_entries(previous_entries)
+
+    #Retrieves a maximum of 7 of the most recent entries
+    def retrieve_previous_7_entries(self, current_mood_record):
+        return (
             Mood_DB.query.filter(
                 Mood_DB.user_id == self.user_id,
                 Mood_DB.date < current_mood_record.date
@@ -283,12 +291,15 @@ class DistressAlert:
             .limit(7)
             .all()
         )
-        #CHecks there are 7 previous entries
+
+    #Checks if there are 7 recent entries, if not, returns False
+    #Checks if the 7 recent entries are all negative, if so, returns True
+    def check_for_negative_entries(self, previous_entries):
         if len(previous_entries) == 7:
-            #returns true if there are 7 previous sentiment scores all below 0 or mood entered for the past 7 entries are negative
+            # returns true if there are 7 previous sentiment scores all below 0 or mood entered for the past 7 entries are negative
             distress_triggered = all(
                 (entry.sentiment_score is not None and entry.sentiment_score < 0) or
-                (entry.mood.lower() in [ "Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"])
+                (entry.mood.lower() in ["Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"])
                 for entry in previous_entries
             )
             return distress_triggered
@@ -315,49 +326,75 @@ class DistressAlert:
 """controller functions"""
 
 
+def is_positive_mood(predicted_mood) -> bool:
+    # Decide which moods are "positive" vs. "negative"
+    positive_moods = ["Happy", "Optimistic", "Calm", "Content", "Excited", "Energetic"]
+    negative_moods = ["Sad", "Angry", "Anxious", "Stressed", "Bored", "Melancholic"]
+    # Returns True if the predicted_mood is in the list of positive_moods
+    if predicted_mood in positive_moods:
+        return True
+    if predicted_mood in negative_moods:
+        return False
+    raise ValueError("Invalid mood.")
+
+
+def create_message(predicted_mood):
+    # If the predicted mood is positive, display a congratulatory message
+    if is_positive_mood(predicted_mood):
+        return (
+            "Congratulations! Your mood is positive. Keep up the great work! "
+            "Here are some tips to stay on this track:"
+        )
+    # Negative or neutral moods get a support message
+    else:
+        return (
+            "It seems you're experiencing a challenging mood. Consider these suggestions "
+            "and feel free to seek additional support."
+        )
+
+
+def retrieve_support(user):
+    #Check valid user is logged in
+    if user is None or user.id is None:
+        raise ValueError("No user found.")
+    # Instantiate the SupportService (example values for ID, name, noticeDouble)
+    support_service = SupportService(
+        supportID=101,
+        serviceName="UniMind Student Support",
+        user_id=user.id
+    )
+    return support_service.getSupportContacts(), support_service.externalUniWellBeing()
+
+
 def process_recommendation(user, predicted_mood):
     """
     Processes recommendations based on the predicted mood.
     Aligns with FR6:
-      - Congratulatory message if mood is positive (Happy, Optimistic, etc.).
-      - Support suggestions and external help if mood is negative.
+        - Congratulatory message if mood is positive (Happy, Optimistic, etc.).
+        - Support suggestions and external help if mood is negative.
 
     Also integrates the SupportService class from the class diagram
     to provide external well-being info or help links.
     """
+
+    #Check predicted_mood is of type 'str'
+    if not isinstance(predicted_mood, str):
+        raise TypeError('predicted_mood must be a string.')
+
     # Instantiate the RecommendationSystem with the current user's ID.
     recommendation_system = RecommendationSystem(user_id=user.id)
 
     # Retrieve suggestions from the recommendation system based on the predicted mood.
     suggestions = recommendation_system.generate_recommendations(predicted_mood)
 
-    # Decide which moods are "positive" vs. "negative"
-    positive_moods = ["Happy", "Optimistic", "Calm", "Content", "Excited", "Energetic"]
+    message = create_message(predicted_mood)
 
-    # If the predicted mood is positive, display a congratulatory message
-    if predicted_mood in positive_moods:
-        message = (
-            "Congratulations! Your mood is positive. Keep up the great work! "
-            "Here are some tips to stay on this track:"
-        )
-        # For a positive mood, we typically don't need external support info
+    # For a positive mood, we typically don't need external support info
+    if is_positive_mood(predicted_mood):
         support_contact = None
         uni_wellbeing = None
     else:
-        # Negative or neutral moods get a support message
-        message = (
-            "It seems you're experiencing a challenging mood. Consider these suggestions "
-            "and feel free to seek additional support."
-        )
-        # Instantiate the SupportService (example values for ID, name, noticeDouble)
-        support_service = SupportService(
-            supportID=101,
-            serviceName="UniMind Student Support",
-            user_id=user.id
-
-        )
-        support_contact = support_service.getSupportContacts()
-        uni_wellbeing = support_service.externalUniWellBeing()
+        support_contact, uni_wellbeing = retrieve_support(user)
 
     # Return a dictionary containing the main message, the suggestions, and any support info
     return {
@@ -365,7 +402,6 @@ def process_recommendation(user, predicted_mood):
         "suggestions": suggestions,
         "support_contact": support_contact,
         "Uni_wellbeing": uni_wellbeing
-
     }
 
 def process_log_mood(choice, user):
