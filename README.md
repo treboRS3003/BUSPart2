@@ -192,7 +192,7 @@ Unit tests to ensure Distress_Alert is activated if and only if there exist 7 co
 | Chiamaka Agu (2333717) |                  |                                                                 |                   |           |
 | Samuel Cardew (2829319 )|                  |                                                                 |                   |           |
 | Charles Egornu (2767047)|                  | Wrote this README and ensured it meets assignment specs           |                   |           |
-| Robert Saunders (2269091)|                  |                                                                 |                   |           |
+| Robert Saunders (2269091)|                  | Wrote all code in Initial Commit and edited README   |                   |           |
 
 ---
 
