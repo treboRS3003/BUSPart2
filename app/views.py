@@ -101,6 +101,12 @@ def journal():
         #If cancel button is pressed, redirect to home and removes knowledge of mood_id input
         if form.cancel.data:
             flash("Journal form closed. No sentiment score saved.", "info")
+            # Check for distress alert NOTE this is intentionally placed to only occur if the journal was filled out. This is because we only redirect when the last 7 entries have negative mood or last 7 entries have negative sentiment score.
+            db_record = Mood_DB.query.get(mood_id)
+            alert = DistressAlert(user_id=current_user.id)
+            if alert.triggerAlert(db_record):
+                flash("Your recent mood entries are consistently negative. Redirecting to distress page.", "warning")
+                return redirect(url_for('distress'))
             session.pop('mood_id', None)
             return redirect(url_for('home'))
         if form.submit.data and form.validate_on_submit():
@@ -112,7 +118,7 @@ def journal():
             else:
                 flash(f"Sentiment score: {mood_entry.sentiment_score}", "success")
                 flash("Sentiment score saved!", "success")
-                # Check for distress alert NOTE this is intentionally placed to only occur if the journal was filled out. This is because we only redirect when the last 7 entries have negative mood AND negative sentiment score.
+                # Check for distress alert NOTE this is intentionally placed to only occur if the journal was filled out. This is because we only redirect when the last 7 entries have negative mood or last 7 entries have negative sentiment score.
                 db_record = Mood_DB.query.get(mood_id)
                 alert = DistressAlert(user_id=current_user.id)
                 if alert.triggerAlert(db_record):
