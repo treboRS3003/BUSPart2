@@ -112,7 +112,7 @@ def journal():
             else:
                 flash(f"Sentiment score: {mood_entry.sentiment_score}", "success")
                 flash("Sentiment score saved!", "success")
-                # Check for distress alert
+                # Check for distress alert NOTE this is intentionally placed to only occur if the journal was filled out. This is because we only redirect when the last 7 entries have negative mood AND negative sentiment score.
                 db_record = Mood_DB.query.get(mood_id)
                 alert = DistressAlert(user_id=current_user.id)
                 if alert.triggerAlert(db_record):
