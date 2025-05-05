@@ -1,0 +1,149 @@
+commit 2b04d81827044f2e39c324ede78d77510cc5eb56
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 10:45:02 2025 +0100
+
+    Update views.py
+    
+    Ensuring distress alert was entered if journal form is not completed
+
+commit 1b13792a5b948c3d73873159592769ea62826e93
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 10:42:11 2025 +0100
+
+    Update views.py
+
+commit 743765c59bea53b6744ffd53c4acab53eb7290d2
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 10:02:43 2025 +0100
+
+    Update requirements.txt
+
+commit 2e957c2ab89b7393c2a26ab2a33bfbdf2b1cc6bc
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 09:59:50 2025 +0100
+
+    Update requirements.txt
+
+commit 6a89c29deb7ac4e73729c381669023166c4fac68
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 09:58:29 2025 +0100
+
+    Update requirements.txt
+
+commit 93e17723eb7cf8258a6f0cfa03cb841b00721d69
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Wed Apr 30 09:57:05 2025 +0100
+
+    Update requirements.txt
+    
+    adding requirements
+
+commit e0e42b9bd936adca8ae45be2e116dafc2cfcc832
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Thu Apr 24 16:52:12 2025 +0100
+
+    Update README.md
+    
+    added robs key contributions
+
+commit 67b325e486771d280463fa9b4f5c44fb4a1fd25c
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Thu Apr 24 16:49:30 2025 +0100
+
+    Update README.md
+    
+    Readme as produced by Charles and edited by Rob.
+
+commit 16d005a901012a69305f45ad249b4147c2f70260
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Thu Apr 24 15:41:51 2025 +0100
+
+    Create requirements.txt
+    
+    Used in cloning the repository as outlined in the ReadMe file.
+
+commit c254036fe268b3f2ffb80cfd0fe00cbcaea7a16a
+Merge: 3edf004 5d4b4de
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Fri Apr 18 11:27:36 2025 +0100
+
+    Merge pull request #1 from scardew/main
+    
+    Unit Testing for BUS Assignment 2
+
+commit 5d4b4dec4133db57e5ef1c9d7b92f068bd57dfa9
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Fri Apr 18 11:25:24 2025 +0100
+
+    Update misc.xml
+    
+    Changed Environment
+
+commit 47c2e9d1b31f466eef6a353103fa4b1d7b5c9fc2
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Fri Apr 18 11:24:06 2025 +0100
+
+    Update BUSPROJECT.iml
+    
+    Changed Environment
+
+commit bcaf7b07666047d112fc8ec719ac7fda140a3c78
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Thu Apr 17 16:07:30 2025 +0100
+
+    Added negative unit test for process_recommendation function.
+
+commit ed4a3b5fe95f44b5e148b7f6b0fd8f4405f29788
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Thu Apr 17 15:45:22 2025 +0100
+
+    Added positive unit test for triggerAlert function. Added negative unit test for triggerAlert function.
+
+commit ea1c51f07a52da5a3bd8a8074a56382a8adc00da
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Tue Apr 15 21:56:28 2025 +0100
+
+    Added negative unit test for create_message function. Added positive unit test for retrieve_support function. Added negative unit test for retrieve_support function. Added positive unit test for process_recommendation function.
+
+commit 7343c66bcbaa2f7dfd0175c708993d5e031ce6c8
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Mon Apr 14 17:25:37 2025 +0100
+
+    Added positive unit test for the create_message function
+
+commit d41e437b57f8b37db601379787ff5b8bed4b7237
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Wed Apr 9 17:22:11 2025 +0100
+
+    process_recommendation() function broken up into four separate functions to allow for easier unit testing
+
+commit 8b437cbd4db23551ab6de710020f289069ec36ad
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Mon Apr 7 20:23:01 2025 +0100
+
+    triggerAlert function broken down into three separate functions to allow easier unit testing. Created a new class and function that creates fake mood entries so that the unit tests do not rely on real data from the Mood_DB database. Created positive and negative unit tests for the check_for_negative_entries function
+
+commit 88c567e93ce8bf648d06252dacd5bd3d57809b43
+Author: scardew <s.cardew2001@gmail.com>
+Date:   Fri Apr 4 16:27:12 2025 +0100
+
+    New test directory added, containing new unit test files (still to be completed)
+
+commit 3edf004964d19f079f99b05b7d666d2da6418245
+Merge: b7ebce3 9a7c4a7
+Author: Robert Saunders <r.j.saunders@me.com>
+Date:   Fri Mar 28 13:22:19 2025 +0000
+
+    Merge branch 'main' of https://github.com/treboRS3003/BUSPart2
+
+commit b7ebce3e343e07ff77830b30f37cfb1c4cd45167
+Author: Robert Saunders <r.j.saunders@me.com>
+Date:   Fri Mar 28 13:09:10 2025 +0000
+
+    Initial commit
+
+commit 9a7c4a7d8bf7cafff56143262391dd7ae00fd22a
+Author: treboRS3003 <r.j.saunders@me.com>
+Date:   Fri Mar 28 13:01:32 2025 +0000
+
+    Initial commit
