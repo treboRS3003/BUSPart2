@@ -15,7 +15,7 @@ BUS-ED-25/
 ├── requirements.txt         # Package dependencies
 ├── run.py                   # App launcher
 ├── README.md                # README file
-├── DemoVid.mp4 # MP4 file containing video about the code
+├── DemoVid.mp4              # MP4 file containing video about the code
 ├── git-log.txt              # File containing git logs
 ├── app/                     
 │   ├── __init__.py          # Flask app and SQLAlchemy setup
