@@ -9,12 +9,14 @@ It’s built with Flask (as permitted via Marcel Skudlarski), following a modula
 ## Project Structure (MVC Layout)
 
 ```
-BUSPart2-main/
+BUS-ED-25/
 ├── .flaskenv                # Flask environment variables loader
 ├── config.py                # App settings and configuration
 ├── requirements.txt         # Package dependencies
 ├── run.py                   # App launcher
 ├── README.md                # README file
+├── UTF-8BUS Final Video.mp4 # MP4 file containing video about the code
+├── git-log.txt              # File containing git logs
 ├── app/                     
 │   ├── __init__.py          # Flask app and SQLAlchemy setup
 │   ├── models.py            # Models – (User, Mood_DB, EmergencyContact)
